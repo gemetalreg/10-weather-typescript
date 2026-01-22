@@ -1,11 +1,12 @@
 import chalk from 'chalk';
 import dedent from 'dedent-js';
+import type { WeatherRes } from './api.service.js';
 
-const printError = (error) => {
+const printError = (error: string) => {
 	console.log(chalk.bgRed(' ERROR ') + ' ' + error);
 };
 
-const printSuccess = (message) => {
+const printSuccess = (message: string) => {
 	console.log(chalk.bgGreen(' SUCCESS ') + ' ' + message);
 };
 
@@ -20,10 +21,10 @@ const printHelp = () => {
 	);
 };
 
-const printWeather = (res, icon) => {
+const printWeather = (res: WeatherRes, icon: string) => {
 	console.log(
 		dedent`${chalk.bgYellow(' WEATHER ')} Погода в городе ${res.name}
-		${icon}  ${res.weather[0].description}
+		${icon}  ${res?.weather[0]?.description}
 		Температура: ${res.main.temp} (ощущается как ${res.main.feels_like})
 		Влажность: ${res.main.humidity}%
 		Скорость ветра: ${res.wind.speed}

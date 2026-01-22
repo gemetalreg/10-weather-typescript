@@ -21,10 +21,27 @@ const getIcon = (icon: string) => {
 			return '❄️';
 		case '50':
 			return '🌫️';
+		default:
+			return '';
 	}
 };
 
-const getWeather = async (city: string) => {
+interface WeatherRes {
+  name: string;
+  weather: { description: string; icon: string }[];
+  main: {
+    temp: number;
+    feels_like: number;
+    humidity: number;
+  };
+  wind: {
+    speed: number;
+  };
+  // добавьте другие нужные поля, если необходимо
+}
+
+
+const getWeather = async (city: string): Promise<WeatherRes> => {
 	const token = process.env.TOKEN ?? await getKeyValue(TOKEN_DICTIONARY.token);
 	if (!token) {
 		throw new Error('Не задан ключ API, задайте его через команду -t [API_KEY]');
@@ -41,3 +58,4 @@ const getWeather = async (city: string) => {
 };
 
 export { getWeather, getIcon };
+export type { WeatherRes };

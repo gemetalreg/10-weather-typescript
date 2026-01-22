@@ -47,7 +47,7 @@ const getForecast = async (): Promise<void> => {
 			return;
 		}
 		const weather = await getWeather(city);
-		printWeather(weather, getIcon(weather.weather[0].icon));
+		printWeather(weather, getIcon(weather?.weather[0]?.icon || ""));
 	} catch (e: unknown) {
 		if (axios.isAxiosError(e) && e.response?.status === 404) {
 			printError('Неверно указан город');
